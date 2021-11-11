@@ -1,0 +1,66 @@
+Para la 4ta iteración de "Tus Libros" se requiere implementar finalmente la cara externa de la interfaz REST y construir la prueba de concepto de un prototipo de aplicación cliente, que consuma los servicios provistos por dicha interfaz, siguiendo una arquitectura cliente-servidor.
+
+1) Con respecto a la interfaz Rest, podremos hacer uso de WebClient y WebServer del paquete WebCliente.pck.st (incluído en el repo de la materia), para redireccionar los pedidos del exterior a los mensajes que sabe responder la solución de la iteración 3. Para más información, pueden ver el ejemplo incluído (StringsServicesServer.st), como también browsear los mensajes definidos en las clases WebClient y WebServer. Recuerden que deben instalar el paquete en su imagen de CuisU. 
+
+2) Para el prototipo de aplicación cliente que deben construir, y su GUI gráfica, se recomienda utilizar e instalar en sus imágenes los siguientes paquetes incluídos en los siguientes directorios de CuisU:
+
+/Packages/Morphic/Morphic-Misc1/Morphic-Misc1.pck.st
+/Packages/Morphic/Morphic-Widgets-Extras.pck.st
+
+Instálenlos todos y explórenlos. Si no los instalan, la demo incluída de obtener palabras de una oración (WordsClientDemo.st) puede no funcionar correctamente. La misma deben incluirla en la imagen DESPUÉS de incluir dichos paquetes. 
+
+El prototipo que se quiere construir debe:
+
+i) Permitir la creación de un carrito. Para ello se debe tener una ventana donde se pueda ingresar un usuario y contraseña válidos en textboxes claramente identificados, y presionar un botón "Create Cart".
+
+ii) Si el usuario y contraseña son válidos se debe abrir una nueva ventana que muestre el catálogo de libros de la editorial en una lista, incluyendo su título y número de isbn. En caso contrario se mostrará un error de login incorrecto (elijan la manera ustedes).
+
+iii) Se debe poder presionar un botón de "Add product to cart" para pasar elementos seleccionados de dicho catálogo a otra lista que represente al carrito. Ambas listas deben estar claramente identificadas con labels. Sería deseable poder ingresar en un textbox o similar la cantidad de elementos que se deben agregar de un producto seleccionado del catalogo dado. De manera análoga se debe poder eliminar títulos agregados al carrito. Recuerden que el agregar o quitar elementos al carrito implica modificar al modelo que corre en el servidor de forma inmediata.
+
+iv) Cuando el usuario está conforme con su selección de productos, debe de poder presionar un botón de "Check out". El mismo debería efectuar el check out y realizar la venta correspondiente. Para simplificar, se asume que los datos de la tarjeta de crédito ya son conocidos por el servidor al momento del login. Si la compra se efectiviza, se debe visualizar el ticket de detalle de la venta correspondiente (nuevamente, elijan ustedes la manera de hacerlo). En caso contrario, se deberá mostrar un mensaje de error, junto al motivo de dicho error. Al terminar la operación se debería de poder tener la opción de desloguearse o realizar una nueva compra.
+
+
+v) Además de comprar, un usuario logueado debe de poder visualizar su historial de compras. Es decir, la lista de libros comprados históricamente por el usuario, junto a su cantidad por título, y el total gastado. 
+
+Aclaraciones:
+
+a) Los pasos de arriba son un conjunto mínimo de funcionalidades requeridas. Si quieren hacer algo más completo, pueden hacerlo por puntos extra. Por el momento los objetos simulados de la iteración anterior (como el merchant processor) podrán seguir siendo tratados de la misma manera.
+
+b) Deberán agregar todos los servicios/cambios a su modelo que crean necesarios para poder cumplir con las funcionalidades de arriba. Por ej. se deberá obtener el catálogo completo de libros de la editorial para visualizarlo en la lista de la GUI.
+
+c) No olviden que todo lo visto en la materia hasta ahora sigue valiendo ;) Lo que puedan traten de desarrollarlo utilizando TDD, eviten código repetido, los ifs innecesarios, piensen en las reglas de diseño que vimos, etc...
+
+d) Si lo desean pueden ignorar los formatos de URL y devolución de strings estipulados en la consigna original.
+
+e) Pueden basarse en la demo provista (WordsClientDemo.st) y elegir los mismos morphs, o no, y utilizar otros que ustedes mismos investiguen. En la manera de lo posible sería bueno que el modelo de los morphs no conozca a los morphs propiamente dichos (miren la demo provista y piensen la ventaja de esto).
+
+f) La comunicación entre cliente y servidor es sincrónica en la demo provista. Hacerla de forma asincrónica para el nuevo prototipo da puntos extra.
+
+g) Deberán incluir un readme.txt incluyendo todas las indicaciones necesarias para correr correctamente la demo. Por ej. cómo levantar el web server, incluyendo el puerto esperado, usuarios y contraseñas de usuarios con tarjetas correctas o con problemas, etc...
+
+Importante: 
+
+Para abrir el server de ejemplo que sabe escuchar el:
+
+http://localhost:8080/quote
+
+y el:
+
+http://localhost:8080/words?sentence=i%20am%20one%20with%20the%20force%20and%20the%20force%20is%20with%20me
+
+puede abrir un workspace y evaluar:
+
+server := StringsServicesRestInterface listeningOn: 8080 (o el puerto que deseen)
+
+Para darlo de baja: 
+
+server destroy.
+
+(Si tienen algún problema de perder la referencia del StringsServicesRestInterface para darlo de baja, recuerden que siempre pueden utilizar: StringsServicesRestInterface allInstances).
+
+Luego para abrir una ventana cliente y utilizarlo:
+
+client := WordsClientWindow open.
+
+
+
